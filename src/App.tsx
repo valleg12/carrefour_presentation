@@ -11,6 +11,9 @@ import { CodeExecutionSlide } from "./components/CodeExecutionSlide";
 import Papa from "papaparse";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
 
+// Définir le chemin de base dynamique pour les assets (au tout début du fichier)
+const base = import.meta.env.BASE_URL;
+
 function App() {
   const [activeTab, setActiveTab] = useState("presentation");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -658,7 +661,7 @@ function CsvResultsViewer() {
   const [modalContent, setModalContent] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/brand_verification_results-1.csv")
+    fetch(base + "brand_verification_results-1.csv")
       .then((res) => res.text())
       .then((text) => {
         const parsed = Papa.parse(text, { header: true });
@@ -785,11 +788,11 @@ function RoadmapWithDiagrams() {
                 </ul>
                 <div className="mt-4 flex flex-col md:flex-row gap-6 justify-center items-center">
                   <div className="flex flex-col items-center">
-                    <img src="/n8n_scenario.png" alt="Schéma d'automatisation n8n" className="max-w-xs rounded shadow border cursor-pointer hover:scale-105 transition-transform" onClick={() => setOpen('n8n')} />
+                    <img src={base + "n8n_scenario.png"} alt="Schéma d'automatisation n8n" className="max-w-xs rounded shadow border cursor-pointer hover:scale-105 transition-transform" onClick={() => setOpen('n8n')} />
                     <span className="mt-2 text-xs text-gray-500">Scénario n8n</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <img src="/make_scenario.png" alt="Schéma d'automatisation Make" className="max-w-xs rounded shadow border cursor-pointer hover:scale-105 transition-transform" onClick={() => setOpen('make')} />
+                    <img src={base + "make_scenario.png"} alt="Schéma d'automatisation Make" className="max-w-xs rounded shadow border cursor-pointer hover:scale-105 transition-transform" onClick={() => setOpen('make')} />
                     <span className="mt-2 text-xs text-gray-500">Scénario Make</span>
                   </div>
                 </div>
@@ -800,7 +803,7 @@ function RoadmapWithDiagrams() {
                     </DialogHeader>
                     <div className="overflow-auto p-6 pt-2 w-full">
                       <img
-                        src={open === 'n8n' ? '/n8n_scenario.png' : '/make_scenario.png'}
+                        src={open === 'n8n' ? base + 'n8n_scenario.png' : base + 'make_scenario.png'}
                         alt={`Schéma d'automatisation ${open === 'n8n' ? 'n8n' : 'Make'}`}
                         className="w-full h-auto rounded shadow-lg border-2 border-gray-200"
                         style={{ minWidth: '1200px' }}
