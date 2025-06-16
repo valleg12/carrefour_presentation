@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ne pas ignorer les CSV dans public
+!public/*.csv

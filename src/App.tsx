@@ -23,6 +23,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState<any>(null);
   const [isPromptExpanded, setIsPromptExpanded] = useState(false);
+  const [avgScore, setAvgScore] = useState<string | null>(null);
 
   const slides = [
     // Slide 1 - Page de titre
@@ -46,7 +47,7 @@ function App() {
           </div>
           <div className="mt-12 grid grid-cols-2 gap-8">
             <div className="text-center">
-              <div className="text-2xl font-semibold text-blue-600 mb-2">95%+</div>
+              <div className="text-2xl font-semibold text-blue-600 mb-2">{avgScore ? `${avgScore}%` : '...'}</div>
               <p className="text-gray-600">Précision</p>
             </div>
             <div className="text-center">
@@ -558,6 +559,20 @@ function App() {
       ]
     });
   };
+
+  useEffect(() => {
+    fetch(base + "brand_verification_results-1.csv")
+      .then((res) => res.text())
+      .then((text) => {
+        const parsed = Papa.parse(text, { header: true });
+        const data = parsed.data.filter((row: any) => row["Brand Name"]);
+        const total = data.length;
+        const avg = (
+          data.reduce((acc, row) => acc + (parseFloat(row["Score_Confiance"]) || 0), 0) / total
+        ).toFixed(1);
+        setAvgScore(avg);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
