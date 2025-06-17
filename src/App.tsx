@@ -8,6 +8,7 @@ import { Switch } from "./components/ui/switch";
 import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 import { Badge } from "./components/ui/badge";
 import { CodeExecutionSlide } from "./components/CodeExecutionSlide";
+import InstallationSlide from "./components/InstallationSlide";
 import Papa from "papaparse";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
 
@@ -248,7 +249,77 @@ function App() {
           </div>
         </div>
       ),
-      background: "bg-white"
+      background: "bg-gradient-to-br from-blue-50 to-cyan-100"
+    },
+
+    // Slide 3.5 - Guide d'Installation
+    {
+      title: "Guide d'Installation",
+      description: "Installation et configuration de la solution",
+      content: (
+        <InstallationSlide
+          steps={[
+            {
+              step: "Prérequis",
+              description: "Python 3.8+, Docker (recommandé pour Perplexica), Ollama (pour les modèles locaux)",
+              screenshots: []
+            },
+            {
+              step: "Installation de Docker",
+              description: "Télécharger et installer Docker Desktop depuis docker.com",
+              screenshots: [
+                {
+                  image: "installation/docker_download.png",
+                  caption: "Page de téléchargement de Docker Desktop"
+                },
+                {
+                  image: "installation/docker_verify.png",
+                  caption: "Docker Desktop en cours d'exécution"
+                }
+              ]
+            },
+            {
+              step: "Configuration de Perplexica",
+              description: "Installation et configuration de Perplexica pour l'analyse sémantique",
+              screenshots: [
+                {
+                  image: "installation/perplexica_clone.png",
+                  caption: "Clonage du dépôt Perplexica"
+                },
+                {
+                  image: "installation/perplexica_config.png",
+                  caption: "Configuration du fichier config.toml"
+                },
+                {
+                  image: "installation/perplexica_verify.png",
+                  caption: "Interface de Perplexica"
+                }
+              ]
+            },
+            {
+              step: "Installation du Projet",
+              description: "Clonage du projet et installation des dépendances",
+              screenshots: [
+                {
+                  image: "installation/project_setup.png",
+                  caption: "Clonage du dépôt et installation des dépendances"
+                }
+              ]
+            },
+            {
+              step: "Lancement de la Vérification",
+              description: "Exécution du script de vérification des marques",
+              screenshots: [
+                {
+                  image: "installation/brand_verification.png",
+                  caption: "Lancement de la vérification standard"
+                }
+              ]
+            }
+          ]}
+        />
+      ),
+      background: "bg-gradient-to-br from-blue-50 to-indigo-100"
     },
 
     // Slide 4 - Analyse des Coûts
@@ -521,6 +592,39 @@ function App() {
         <RoadmapWithDiagrams />
       ),
       background: "bg-gradient-to-br from-blue-50 to-cyan-100"
+    },
+
+    // Slide Installation (nouvelle slide)
+    {
+      title: "Guide d'Installation",
+      description: "Installation et configuration de la solution",
+      content: (
+        <InstallationSlide
+          screenshots={[
+            {
+              step: "Installation de Docker",
+              description: "Installer Docker Desktop sur votre machine. Docker est nécessaire pour exécuter Perplexity et d'autres services requis.",
+              image: "installation/docker_install.png"
+            },
+            {
+              step: "Configuration de Perplexity",
+              description: "Installer et configurer Perplexity pour l'analyse sémantique des marques.",
+              image: "installation/perplexity_setup.png"
+            },
+            {
+              step: "Installation des dépendances Python",
+              description: "Installer les dépendances Python requises via pip install -r requirements.txt",
+              image: "installation/python_deps.png"
+            },
+            {
+              step: "Configuration de l'environnement",
+              description: "Configurer les variables d'environnement et les clés API nécessaires.",
+              image: "installation/env_setup.png"
+            }
+          ]}
+        />
+      ),
+      background: "bg-gradient-to-br from-blue-50 to-indigo-100"
     }
   ];
 
